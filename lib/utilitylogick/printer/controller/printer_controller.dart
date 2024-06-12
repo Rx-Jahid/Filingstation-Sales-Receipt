@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:flingstation2/model/extraitem.dart';
 import 'package:flingstation2/model/sellListModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'dart:io';
@@ -91,13 +91,31 @@ class PrinterController extends GetxController {
 
     final profile = await CapabilityProfile.load(name: 'XP-N160I');
     final generator = Generator(PaperSize.mm80, profile);
-    bytes += generator.text(" Prodhan CNG & Filling Station ",
-        styles: PosStyles(
+    bytes += generator.setGlobalCodeTable('CP1252');
+    bytes += generator.row([
+      PosColumn(
+          text: 'Prodhan',
+          width: 5,
+          styles: PosStyles(
+              align: PosAlign.right,
+              height: PosTextSize.size3,
+              width: PosTextSize.size2,
+              bold: true)),
+      PosColumn(
+          text: 'CNG',
+          width: 1,
+          styles: PosStyles(
             align: PosAlign.center,
-            height: PosTextSize.size2,
-            width: PosTextSize.size1,
-            bold: true),
-        linesAfter: 1);
+          )),
+      PosColumn(
+          text: 'Filling Station',
+          width: 6,
+          styles: PosStyles(
+              align: PosAlign.left,
+              height: PosTextSize.size3,
+              width: PosTextSize.size1,
+              bold: true)),
+    ]);
     bytes += generator.text("D N Road Ponchoboti,Fatullah,Narayanganj",
         styles: PosStyles(align: PosAlign.center));
     bytes += generator.text('Mobile: 01820521186',
@@ -106,7 +124,7 @@ class PrinterController extends GetxController {
     bytes += generator.hr();
     bytes += generator.row([
       PosColumn(
-          text: 'Car No/ Name:',
+          text: 'CarNo:',
           width: 6,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
@@ -176,7 +194,7 @@ class PrinterController extends GetxController {
     bytes += generator.hr();
     bytes += generator.row([
       PosColumn(
-          text: 'No',
+          text: mylidt.length.toString(),
           width: 1,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
@@ -201,7 +219,7 @@ class PrinterController extends GetxController {
       bytes += generator.row([
         PosColumn(text: i.toString(), width: 1),
         PosColumn(
-            text: mylidt[i].extraitem,
+            text: 'cool',
             width: 5,
             styles: PosStyles(
               align: PosAlign.left,
@@ -229,16 +247,16 @@ class PrinterController extends GetxController {
           width: 6,
           styles: PosStyles(
             align: PosAlign.left,
-            height: PosTextSize.size4,
-            width: PosTextSize.size4,
+            height: PosTextSize.size2,
+            width: PosTextSize.size2,
           )),
       PosColumn(
           text: selllistmodel.grandtotal.toString(),
           width: 6,
           styles: PosStyles(
             align: PosAlign.right,
-            height: PosTextSize.size4,
-            width: PosTextSize.size4,
+            height: PosTextSize.size2,
+            width: PosTextSize.size2,
           )),
     ]);
 
@@ -247,14 +265,6 @@ class PrinterController extends GetxController {
     // ticket.feed(2);
     bytes += generator.text('Thank you!',
         styles: PosStyles(align: PosAlign.center, bold: true));
-
-    bytes += generator.text("26-11-2020 15:22:45",
-        styles: PosStyles(align: PosAlign.center), linesAfter: 1);
-
-    bytes += generator.text(
-        'Note: Goods once sold will not be taken back or exchanged.',
-        styles: PosStyles(align: PosAlign.center, bold: false));
-    bytes += generator.cut();
     printEscPos(bytes, generator);
   }
 

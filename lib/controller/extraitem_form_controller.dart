@@ -29,11 +29,18 @@ class ExtraitemController extends GetxController {
     }
   }
 
-  void addNewDropdown() {
+  /* void addNewDropdown() {
     print(selectedExtraItem.length);
     selectedExtraItem.add(extraItemList.first);
     print(selectedExtraItem
         .length); // Add a null placeholder for the new dropdown
+  }*/
+  void addNewDropdown() {
+    print(selectedExtraItem.length);
+    selectedExtraItem.add(extraItemList.first);
+    calculateTotal(); // Ensure to recalculate the total after adding new item
+    update(); // Trigger UI update
+    print(selectedExtraItem.length);
   }
 
   void calculateTotal() {

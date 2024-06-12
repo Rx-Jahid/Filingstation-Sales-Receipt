@@ -1,6 +1,7 @@
 import 'package:flingstation2/controller/extraitem_form_controller.dart';
 import 'package:flingstation2/controller/mainitem_form_controller.dart';
 import 'package:flingstation2/controller/sell_form.dart';
+import 'package:flingstation2/model/extraitem.dart';
 import 'package:flingstation2/model/sellListModel.dart';
 import 'package:flingstation2/utilitylogick/printer/controller/printer_controller.dart';
 import 'package:flutter/material.dart';
@@ -222,6 +223,10 @@ class FormReceipt extends StatelessWidget {
                                 // Update the total value
                                 extraitemController.calculateTotal();
                                 controller.sellcalculateTotal();
+                                controller.update();
+                                print("add extra");
+                                print(extraitemController
+                                    .selectedExtraItem.length);
                               },
                             ),
                             Text(
@@ -308,6 +313,8 @@ class FormReceipt extends StatelessWidget {
                                     controller.priceTextController.text) ??
                                 0.0));
                         controller.resetfromdata();
+                        print('test');
+                        print(extraitemController.selectedExtraItem.length);
                       }
                     },
                     child: Text('Print&Save'),
