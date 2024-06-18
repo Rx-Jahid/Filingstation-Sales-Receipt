@@ -18,9 +18,15 @@ class Extraitemlist extends StatelessWidget {
             itemCount: controller.extraItemList.length,
             itemBuilder: (context, index) {
               final item = controller.extraItemList[index];
-              return ListTile(
-                title: Text(item.extraitem),
-                subtitle: Text(item.extraitemprice.toString()),
+              return GestureDetector(
+                onTap: () => Get.to(() => Extraitemfrom(
+                      extraitem: item,
+                      title: "Update",
+                    )),
+                child: ListTile(
+                  title: Text(item.extraitem),
+                  subtitle: Text(item.extraitemprice.toString()),
+                ),
               );
             },
           )),

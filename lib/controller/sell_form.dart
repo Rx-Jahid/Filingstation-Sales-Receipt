@@ -66,8 +66,6 @@ class Sell_form_Controller extends GetxController {
     priceTextController.text = '';
     grandTotalTextController.text = '';
     extraTotalTextController.text = '';
-    extraitemController.selectedExtraItem.clear();
-    extraitemController.extratotalValue.value = 0.0;
     Get.back();
   }
 }

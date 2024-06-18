@@ -118,50 +118,33 @@ class PrinterController extends GetxController {
     ]);
     bytes += generator.text("D N Road Ponchoboti,Fatullah,Narayanganj",
         styles: PosStyles(align: PosAlign.center));
-    bytes += generator.text('Mobile: 01820521186',
+    bytes += generator.text('Mobile: +8801304430010',
         styles: PosStyles(align: PosAlign.center));
-
     bytes += generator.hr();
+    bytes += generator.text('Date:-' + selllistmodel.date,
+        styles: PosStyles(align: PosAlign.center));
     bytes += generator.row([
       PosColumn(
-          text: 'CarNo:',
+          text: 'CarNo:- ${selllistmodel.carno}',
           width: 6,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
-          text: 'Reecept No:',
+          text: 'R.No:-${selllistmodel.receipt}',
           width: 6,
-          styles: PosStyles(align: PosAlign.left, bold: true)),
-    ]);
-    bytes += generator.row([
-      PosColumn(
-          text: selllistmodel.carno,
-          width: 6,
-          styles: PosStyles(
-            align: PosAlign.left,
-          )),
-      PosColumn(
-          text: selllistmodel.receipt,
-          width: 6,
-          styles: PosStyles(
-            align: PosAlign.right,
-          )),
+          styles: PosStyles(align: PosAlign.right, bold: true)),
     ]);
     bytes += generator.hr();
     bytes += generator.row([
       PosColumn(
-          text: 'No',
-          width: 1,
+          text: 'Product',
+          width: 6,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
-          text: 'Item',
-          width: 5,
-          styles: PosStyles(align: PosAlign.left, bold: true)),
-      PosColumn(
-          text: 'Rate',
+          text: 'Qty',
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
-          text: 'Qty',
+          text: 'Rate',
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
@@ -169,21 +152,22 @@ class PrinterController extends GetxController {
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
     ]);
+    bytes += generator.hr(ch: '.', linesAfter: 1);
     bytes += generator.row([
       PosColumn(
-          text: 'No',
-          width: 1,
-          styles: PosStyles(align: PosAlign.left, bold: true)),
-      PosColumn(
           text: selllistmodel.mainitemname,
-          width: 5,
-          styles: PosStyles(align: PosAlign.left, bold: true)),
+          width: 6,
+          styles: PosStyles(
+              align: PosAlign.left,
+              height: PosTextSize.size2,
+              width: PosTextSize.size2,
+              bold: true)),
       PosColumn(
-          text: selllistmodel.mainitemrate.toString(),
+          text: selllistmodel.mainitemquantity.toString(),
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
-          text: selllistmodel.mainitemquantity.toString(),
+          text: selllistmodel.mainitemrate.toString(),
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
@@ -191,22 +175,22 @@ class PrinterController extends GetxController {
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
     ]);
+    bytes += generator.hr(
+      ch: ' ',
+    );
+    bytes += generator.hr();
     bytes += generator.hr();
     bytes += generator.row([
       PosColumn(
-          text: mylidt.length.toString(),
-          width: 1,
+          text: 'Mobil',
+          width: 6,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
-          text: 'Item',
-          width: 5,
-          styles: PosStyles(align: PosAlign.left, bold: true)),
-      PosColumn(
-          text: 'Price',
+          text: 'Qty',
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
-          text: 'Qty',
+          text: 'Price',
           width: 2,
           styles: PosStyles(align: PosAlign.center, bold: true)),
       PosColumn(
@@ -214,16 +198,17 @@ class PrinterController extends GetxController {
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
     ]);
-
+    bytes += generator.hr(ch: '.', linesAfter: 1);
     for (int i = 0; i < mylidt.length; i++) {
       bytes += generator.row([
-        PosColumn(text: i.toString(), width: 1),
         PosColumn(
-            text: 'cool',
-            width: 5,
+            text: mylidt[i].extraitem.toString(),
+            width: 6,
             styles: PosStyles(
               align: PosAlign.left,
             )),
+        PosColumn(
+            text: "1", width: 2, styles: PosStyles(align: PosAlign.center)),
         PosColumn(
             text: mylidt[i].extraitemprice.toString(),
             width: 2,
@@ -231,15 +216,13 @@ class PrinterController extends GetxController {
               align: PosAlign.center,
             )),
         PosColumn(
-            text: "1", width: 2, styles: PosStyles(align: PosAlign.center)),
-        PosColumn(
             text: mylidt[i].extraitemprice.toString(),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
     }
 
-    bytes += generator.hr();
+    bytes += generator.hr(linesAfter: 1);
 
     bytes += generator.row([
       PosColumn(

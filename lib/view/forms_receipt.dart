@@ -9,10 +9,10 @@ import 'package:get/get.dart';
 import 'package:flingstation2/view/widgets/dropdownlist.dart';
 
 class FormReceipt extends StatelessWidget {
-  final Sell_form_Controller controller = Get.put(Sell_form_Controller());
   final Maintitem_form_Controller maintitem_form_controller =
       Get.put(Maintitem_form_Controller());
   final PrinterController printerController = Get.put(PrinterController());
+  final Sell_form_Controller controller = Get.put(Sell_form_Controller());
   final String itemName;
   Rx<DateTime> selectedDate = DateTime.now().obs;
   late int receiptno = int.parse(
@@ -35,6 +35,9 @@ class FormReceipt extends StatelessWidget {
   Widget build(BuildContext context) {
     final ExtraitemController extraitemController =
         Get.put(ExtraitemController());
+    extraitemController.selectedExtraItem.clear();
+    extraitemController.extratotalValue.value = 0.0;
+
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -262,11 +265,7 @@ class FormReceipt extends StatelessWidget {
                       primary: Colors.red, // background
                       onPrimary: Colors.white, // foreground
                     ),
-                    onPressed: () {
-                      print(receiptno);
-                      print(selectedDate.value);
-                      print(controller.carNameTextController.text);
-                      print(controller.grandTotalTextController.text);
+                    onPressed: () async {
                       if (_formKey.currentState?.validate() ?? false) {
                         // Form is valid, proceed with submission
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -312,6 +311,7 @@ class FormReceipt extends StatelessWidget {
                             double.tryParse(
                                     controller.priceTextController.text) ??
                                 0.0));
+                        print(extraitemController.selectedExtraItem.length);
                         controller.resetfromdata();
                         print('test');
                         print(extraitemController.selectedExtraItem.length);

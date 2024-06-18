@@ -7,7 +7,12 @@ class Extraitemfrom extends StatelessWidget {
   final Extraitem extraitem;
   final ExtraitemController controller = Get.put(ExtraitemController());
   final String title;
-  Extraitemfrom({required this.title, required this.extraitem});
+  Extraitemfrom({required this.title, required this.extraitem}) {
+    // Initialize the controllers with the values from extraitem
+    controller.itemnamecontrollers.text = extraitem.extraitem ?? '';
+    controller.itempricecontrollers.text =
+        extraitem.extraitemprice?.toString() ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
