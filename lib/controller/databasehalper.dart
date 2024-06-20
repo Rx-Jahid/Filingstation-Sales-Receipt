@@ -100,6 +100,22 @@ class DBcontrolar {
     return result;
   }
 
+  /* all update and delete*/
+  Future<int> updateextraitem(Extraitem extraitemmodel) async {
+    var db = await this.database;
+    var result = await db!.update(extraiemtable, extraitemmodel.tomap(),
+        where: '$extraitemid = ?', whereArgs: [extraitemmodel.exid]);
+    return result;
+  }
+
+  // Delete Operation: Delete a Note object from database
+  Future<int> deleteextraitem(int id) async {
+    var db = await this.database;
+    int result = await db!
+        .rawDelete('DELETE FROM $extraiemtable WHERE $extraitemid = $id');
+    return result;
+  }
+
 /*-- all mape list --*/
   Future<List<Map<String, dynamic>>> getextraitemMapList() async {
     Database? db = await this.database;

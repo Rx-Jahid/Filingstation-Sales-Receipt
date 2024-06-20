@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Extraitemlist extends StatelessWidget {
-  final ExtraitemController controller = Get.put(ExtraitemController());
   @override
   Widget build(BuildContext context) {
+    final ExtraitemController controller = Get.put(ExtraitemController());
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -23,9 +23,22 @@ class Extraitemlist extends StatelessWidget {
                       extraitem: item,
                       title: "Update",
                     )),
-                child: ListTile(
-                  title: Text(item.extraitem),
-                  subtitle: Text(item.extraitemprice.toString()),
+                child: Card(
+                  child: ListTile(
+                    leading: Icon(Icons.image),
+                    title: Text(item.extraitem),
+                    subtitle: Text(item.extraitemprice.toString()),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        controller.deleteExtaitem(item.exid!);
+                        controller.loadExtraItems();
+                      },
+                    ),
+                  ),
                 ),
               );
             },

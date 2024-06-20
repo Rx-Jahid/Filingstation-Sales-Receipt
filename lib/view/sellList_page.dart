@@ -14,17 +14,20 @@ class SsellList extends StatelessWidget {
             itemCount: controller.selllist.length,
             itemBuilder: (context, index) {
               final item = controller.selllist[index];
-              return ListTile(
-                title: Text('Name: ${item.carno}'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Receitp no: ${item.receipt}'),
-                    Text('Item: ${item.mainitemname}'),
-                    Text('Total: ${item.grandtotal.toStringAsFixed(2)} TK'),
-                  ],
+              return Card(
+                elevation: 2,
+                child: ListTile(
+                  title: Text('Name: ${item.carno}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Receitp no: ${item.receipt}'),
+                      Text('Item: ${item.mainitemname}'),
+                      Text('Total: ${item.grandtotal.toStringAsFixed(2)} TK'),
+                    ],
+                  ),
+                  trailing: Text(item.date),
                 ),
-                trailing: Text(item.date),
               );
             },
           )),

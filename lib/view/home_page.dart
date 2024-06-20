@@ -73,7 +73,11 @@ class Home extends StatelessWidget {
                       "PETROL",
                       style: TextStyle(color: Colors.white, fontSize: 40),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(FormReceipt(
+                        itemName: 'petrol',
+                      ));
+                    },
                   )),
             ),
 
@@ -92,7 +96,11 @@ class Home extends StatelessWidget {
                     "DISEL",
                     style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(FormReceipt(
+                      itemName: 'disel',
+                    ));
+                  },
                 )),
             Card(
                 elevation: 20,
@@ -108,7 +116,9 @@ class Home extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
                   onTap: () {
-                    () {};
+                    Get.to(FormReceipt(
+                      itemName: 'octen',
+                    ));
                   },
                 ))
           ],

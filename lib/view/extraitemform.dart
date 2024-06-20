@@ -67,7 +67,12 @@ class Extraitemfrom extends StatelessWidget {
                 foregroundColor: Colors.white, // foreground
               ),
               onPressed: () {
-                controller.setExtraitempriceWithcontroller(extraitem);
+                if (extraitem.exid != null) {
+                  controller.updateExtraitem(extraitem);
+                } else {
+                  controller.setExtraitempriceWithcontroller(extraitem);
+                }
+                controller.loadExtraItems();
               },
               child: Text(title),
             ),

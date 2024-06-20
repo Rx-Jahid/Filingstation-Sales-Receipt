@@ -61,4 +61,16 @@ class ExtraitemController extends GetxController {
     dbController.insertextraitem(extraitem);
     print(extraitem.extraitemprice);
   }
+
+  updateExtraitem(Extraitem extraitem) {
+    extraitem.extraitem = itemnamecontrollers.text;
+    extraitem.extraitemprice =
+        double.tryParse(itempricecontrollers.text) ?? 0.0;
+    dbController.updateextraitem(extraitem);
+    print(extraitem.extraitemprice);
+  }
+
+  deleteExtaitem(int id) {
+    dbController.deleteextraitem(id);
+  }
 }
