@@ -18,6 +18,7 @@ class Myapp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     // TODO: implement build
     return GetMaterialApp(
+        debugShowCheckedModeBanner: false, // Hide the debug banner
         title: 'Filling Station',
         home: Scaffold(
           appBar: AppBar(

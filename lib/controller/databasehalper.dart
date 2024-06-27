@@ -2,6 +2,7 @@ import 'package:flingstation2/model/extraitem.dart';
 import 'package:flingstation2/model/extrasellModel.dart';
 import 'package:flingstation2/model/sellListModel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:sqflite/sqflite.dart';
@@ -120,14 +121,14 @@ class DBcontrolar {
   Future<List<Map<String, dynamic>>> getextraitemMapList() async {
     Database? db = await this.database;
 //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-    var result = await db!.query(extraiemtable, orderBy: '$extraitemid ASC');
+    var result = await db!.query(extraiemtable, orderBy: '$extraitemid DESC');
     return result;
   }
 
   Future<List<Map<String, dynamic>>> getSellMapList() async {
     Database? db = await this.database;
 //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-    var result = await db!.query(dbtable, orderBy: '$colid ASC');
+    var result = await db!.query(dbtable, orderBy: '$colid DESC');
     // var result = await db!.query(dbtable,where: '$colreceipt= $value', orderBy: '$colid ASC');
     return result;
   }
@@ -136,7 +137,7 @@ class DBcontrolar {
   Future<List<Map<String, dynamic>>> getexSellMapList(value) async {
     Database? db = await this.database;
     var result = await db!.query(sellexiemtable,
-        where: '$sellexreceipt = $value', orderBy: '$sellexitemid ASC');
+        where: '$sellexreceipt = $value', orderBy: '$sellexitemid DESC');
     return result;
   }
 
@@ -144,7 +145,7 @@ class DBcontrolar {
   Future<List<Map<String, dynamic>>> getexSellMapLists() async {
     Database? db = await this.database;
 //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-    var result = await db!.query(sellexiemtable, orderBy: '$sellexitemid ASC');
+    var result = await db!.query(sellexiemtable, orderBy: '$sellexitemid DESC');
     //var result = await db!.query(sellexiemtable,where: '$sellexreceipt = $value', orderBy: '$sellexitemid ASC');
     return result;
   }
@@ -203,5 +204,25 @@ class DBcontrolar {
       extrasellitemlist.add(Extrasellmodel.toobj(extraselllistmodelMapList[i]));
     }
     return extrasellitemlist;
+  }
+
+  Future<int> deleteOldSellData() async {
+    var db = await this.database;
+
+    // Calculate the date one month ago
+    DateTime now = DateTime.now();
+    DateTime oneMonthAgo = DateTime(now.year, now.month - 1, now.day);
+    DateTime twoDaysAgo = now.subtract(Duration(days: 2));
+    DateTime oneHourAgo = now.subtract(Duration(hours: 1));
+    // String formattedDate = DateFormat('yyyy-MM-dd').format(twoDaysAgo);
+    String formattedDate = DateFormat('d/M/yyyy').format(oneMonthAgo);
+
+    // Execute the delete operation
+    int result = await db!.delete(
+      dbtable,
+      where: '$coldate < ?',
+      whereArgs: [formattedDate],
+    );
+    return result;
   }
 }

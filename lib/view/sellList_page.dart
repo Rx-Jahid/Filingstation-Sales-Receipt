@@ -1,3 +1,4 @@
+import 'package:flingstation2/view/forms_receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:flingstation2/controller/sell_form.dart';
 import 'package:flingstation2/model/sellListModel.dart';
@@ -14,20 +15,27 @@ class SsellList extends StatelessWidget {
             itemCount: controller.selllist.length,
             itemBuilder: (context, index) {
               final item = controller.selllist[index];
-              return Card(
-                elevation: 2,
-                child: ListTile(
-                  title: Text('Name: ${item.carno}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Receitp no: ${item.receipt}'),
-                      Text('Item: ${item.mainitemname}'),
-                      Text('Total: ${item.grandtotal.toStringAsFixed(2)} TK'),
-                    ],
+              return GestureDetector(
+                child: Card(
+                  elevation: 2,
+                  child: ListTile(
+                    title: Text('Name: ${item.carno}'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Receitp no: ${item.receipt}'),
+                        Text('Item: ${item.mainitemname}'),
+                        Text('Total: ${item.grandtotal.toStringAsFixed(2)} TK'),
+                      ],
+                    ),
+                    trailing: Text(item.date),
                   ),
-                  trailing: Text(item.date),
                 ),
+                onTap: () {
+                  Get.to(FormReceipt(
+                      itemName: '${controller.selllist[index].mainitemname}',
+                      selllistmodel: controller.selllist[index]));
+                },
               );
             },
           )),

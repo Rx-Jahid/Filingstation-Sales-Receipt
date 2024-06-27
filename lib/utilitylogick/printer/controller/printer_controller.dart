@@ -85,6 +85,10 @@ class PrinterController extends GetxController {
     printEscPos(bytes, generator);
   }
 
+  String replaceNonAscii(String text) {
+    return text.replaceAllMapped(RegExp(r'[^\x00-\x7F]'), (match) => '?');
+  }
+
   Future<void> printReceive(
       List<Extraitem> mylidt, Selllistmodel selllistmodel) async {
     List<int> bytes = [];
@@ -125,7 +129,7 @@ class PrinterController extends GetxController {
         styles: PosStyles(align: PosAlign.center));
     bytes += generator.row([
       PosColumn(
-          text: 'CarNo:- ${selllistmodel.carno}',
+          text: 'CarNo:- ${replaceNonAscii(selllistmodel.carno)}',
           width: 6,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(

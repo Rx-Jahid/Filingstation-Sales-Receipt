@@ -1,3 +1,4 @@
+import 'package:flingstation2/controller/databasehalper.dart';
 import 'package:flingstation2/model/extraitem.dart';
 import 'package:flingstation2/utilitylogick/printer/view/printerlist.dart';
 import 'package:flingstation2/view/estraitemlisr.dart';
@@ -9,8 +10,36 @@ import 'package:flingstation2/view/test_page.dart';
 
 class Settings extends StatelessWidget {
   late List<Extraitem> extraitem;
+  DBcontrolar dbController = DBcontrolar.createinstence();
   @override
   Widget build(BuildContext context) {
+    void _showDeleteAlertDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Delete old data"),
+            content: Text("This will delete 1 month old data."),
+            actions: <Widget>[
+              TextButton(
+                child: Text("ok"),
+                onPressed: () {
+                  dbController.deleteOldSellData();
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text("close"),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     // TODO: implement build
     return Column(
       children: [
@@ -90,18 +119,11 @@ class Settings extends StatelessWidget {
             Card(
               color: Colors.white,
               child: GestureDetector(
-                onTap: () {
-                  Get.to(() => Extraitemfrom(
-                        extraitem: Extraitem(
-                          "",
-                          0,
-                        ),
-                        title: "Add New",
-                      ));
-                },
+                onTap: () {},
                 onLongPress: () {
                   // handle long press gesture
-                  Get.to(() => YourWidget());
+                  // Get.to(() => YourWidget());
+                  _showDeleteAlertDialog(context);
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),

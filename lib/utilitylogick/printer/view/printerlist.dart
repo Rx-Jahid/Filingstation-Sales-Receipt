@@ -12,8 +12,10 @@ class Printerlist extends StatelessWidget {
     final PrinterController controller = Get.put(PrinterController());
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Hide the debug banner
       home: Scaffold(
         appBar: AppBar(
+          elevation: 1,
           title: Text('Add Printer'),
         ),
         body: Obx(() {

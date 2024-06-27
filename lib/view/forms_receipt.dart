@@ -14,10 +14,15 @@ class FormReceipt extends StatelessWidget {
   final PrinterController printerController = Get.put(PrinterController());
   final Sell_form_Controller controller = Get.put(Sell_form_Controller());
   final String itemName;
-  Rx<DateTime> selectedDate = DateTime.now().obs;
+  final Selllistmodel? selllistmodel;
+  final Rx<DateTime> selectedDate = DateTime.now().obs;
   late int receiptno = int.parse(
       '${selectedDate.value.minute}${selectedDate.value.microsecond}');
-  FormReceipt({super.key, required this.itemName}); // Default date
+  FormReceipt({super.key, required this.itemName, this.selllistmodel}) {
+    if (selllistmodel?.id != null) {
+      receiptno = int.parse(selllistmodel!.receipt);
+    }
+  } // Default date
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
